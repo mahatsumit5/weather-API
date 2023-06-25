@@ -1,0 +1,15 @@
+###testing server status
+GET http://localhost:8000/results
+Content-Type: application/json
+
+{
+   "city":"sydney" 
+}
+
+####
+POST  http://localhost:8000/results
+Content-Type: application/json
+
+{
+   "city":"melbourne" 
+}
