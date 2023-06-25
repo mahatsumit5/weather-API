@@ -1,16 +1,19 @@
-import express from "express";
 import axios from "axios";
+import express from "express";
 import cors from "cors";
 const app = express();
-const PORT = 8000;
-app.listen(PORT, () => console.log("server is runiing on port " + PORT));
+const PORT = process.env.PORT || 8000;
 
 // middleware to convert data into json
 app.use(express.json());
-
 // cross  origin resources sharing connects two network hosted at different place
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.json({
+    msg: "welcome to my weather api ",
+  });
+});
 app.post("/results", async (req, res) => {
   const { city } = req.body; //getting name of city from the body
   console.log(city);
@@ -27,6 +30,7 @@ app.post("/results", async (req, res) => {
     const response = await axios.request(options);
     res.send({
       status: "success",
+      message: "success",
       data: response.data,
     });
     console.log(response);
@@ -39,6 +43,10 @@ app.post("/results", async (req, res) => {
       });
     }
   }
+});
 
-  // console.error(error);
+app.listen(PORT, (error) => {
+  error
+    ? console.log(error.message)
+    : console.log(`Server running at http://localhost:${PORT}`);
 });
